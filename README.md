@@ -1,4 +1,4 @@
-# UltrAES - C++原生高性能文件加密工具
+# UltrAES - 使用AES-256的高性能文件加密工具
 
 ![C++ 14](https://img.shields.io/badge/C++-14-blue.svg)
 ![GPL3 License](https://img.shields.io/badge/license-GPL3-green.svg)
