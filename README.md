@@ -82,12 +82,14 @@ msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
 
 填写输入/输出文件
 
-选择加密模式（密码/密钥文件）
+选择密钥模式（密码/密钥文件）
 
-开始处理：点击"加密"或"解密"按钮
+选择处理模式（自动/加密/解密）
+
+开始处理：点击"开始"按钮
 
 ### 批量处理脚本
-示例脚本：下载链接
+示例脚本：[下载链接](https://jyl5.github.io/UltrAES/samples/UAScript/UAScript_sample.zip)
 
 ### 命令行界面（CLI）
 #### 基本语法
