@@ -1,5 +1,8 @@
 UltrAES - C++原生高性能文件加密工具
-https://img.shields.io/badge/C++-17-blue.svg https://img.shields.io/badge/license-MIT-green.svg https://img.shields.io/badge/platform-Windows-lightblue.svg https://img.shields.io/badge/Visual%2520Studio-2022-purple.svg
+![C++ 17](https://img.shields.io/badge/C++-17-blue.svg)
+![MIT License](https://img.shields.io/badge/license-MIT-green.svg)
+![Windows Platform](https://img.shields.io/badge/platform-Windows-lightblue.svg)
+![Visual Studio 2022](https://img.shields.io/badge/Visual%2520Studio-2022-purple.svg)
 
 🚀 项目概述
 UltrAES 是一个完全使用 C++ 原生开发的高性能文件加密工具，基于工业级 AES-256 加密算法实现。无需任何外部依赖，提供卓越的加密性能和最小的内存占用。
