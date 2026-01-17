@@ -1,8 +1,5 @@
 UltrAES - C++原生高性能文件加密工具
-https://img.shields.io/badge/C++-17-blue.svg
-https://img.shields.io/badge/license-MIT-green.svg
-https://img.shields.io/badge/platform-Windows-lightblue.svg
-https://img.shields.io/badge/Visual%2520Studio-2022-purple.svg
+https://img.shields.io/badge/C++-17-blue.svg https://img.shields.io/badge/license-MIT-green.svg https://img.shields.io/badge/platform-Windows-lightblue.svg https://img.shields.io/badge/Visual%2520Studio-2022-purple.svg
 
 🚀 项目概述
 UltrAES 是一个完全使用 C++ 原生开发的高性能文件加密工具，基于工业级 AES-256 加密算法实现。无需任何外部依赖，提供卓越的加密性能和最小的内存占用。
@@ -70,7 +67,6 @@ C++标准：C++14 或更高
 powershell
 # 使用 MSBuild
 msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
-
 🖥️ 使用指南
 图形界面操作
 启动程序：双击 UltrAES.exe
@@ -86,8 +82,7 @@ msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
 开始处理：点击"加密"或"解密"按钮
 
 批量处理脚本
-
-示例脚本：https://jyl5.github.io/UltrAES/samples/UAScript/UAScript_sample.zip
+示例脚本：下载链接
 
 命令行界面（CLI）
 powershell
@@ -96,7 +91,6 @@ UltrAES.exe [命令] [参数]
 
 # 批量处理
 UltrAES.exe batch -s "script.txt"
-
 配置文件
 程序自动生成 UltrAES.ini 保存用户设置：
 
@@ -104,7 +98,6 @@ ini
 [startup]
 UsePwd = true
 WindowOnTop = true
-
 🏗️ 项目架构
 技术栈
 核心语言：ISO C++14
@@ -119,7 +112,6 @@ UI框架：纯 Win32 API + 自定义控件
 
 算法实现特点
 AES 核心：
-
 查表法优化的 SubBytes/ShiftRows
 
 有限域乘法优化 MixColumns
@@ -127,7 +119,6 @@ AES 核心：
 预计算的轮密钥
 
 性能优化：
-
 循环展开和指令重排
 
 内存对齐访问（alignas）
@@ -135,7 +126,6 @@ AES 核心：
 缓存友好的数据结构
 
 安全特性：
-
 敏感数据零初始化
 
 防止时序攻击的比较函数
@@ -178,15 +168,14 @@ powershell
 # 1. 克隆仓库
 git clone https://github.com/jyl5/UltrAES.git
 
-# 2. 配置构建选项（修改 Config.props）
+# 2. 配置构建选项
 #   设置优化级别、启用指令集扩展等
 
 # 3. 自定义编译
 msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64 /p:UseAESNI=true
 
 # 4. 运行测试
-.\x64\Release\UltrAESTests.exe
-
+.\x64\Release\UltrAES.exe
 📚 文档资源
 API 参考 - 详细类和方法说明
 
@@ -258,4 +247,4 @@ Windows SDK 团队 - 开发工具支持
 高性能 · 零依赖 · 专业级安全
 
 最后编译：Build 162 (Visual Studio 2022)
-发布日期：2026年1月 
+发布日期：2026年1月
