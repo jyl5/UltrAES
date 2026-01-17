@@ -23,7 +23,7 @@ UltrAES 是一个完全使用 C++ 原生开发的高性能文件加密工具，�
 
 SIMD 优化：使用 SSE/AVX 指令集加速哈希计算
 
-实时进度反馈：显示加密进度和性能统计
+实时进度反馈：显示加密进度
 
 ### 📊 完整性验证
 原生哈希算法：
@@ -68,7 +68,7 @@ C++标准：C++14 或更高
 在项目目录找到生成的可执行文件
 
 #### 方法二：命令行构建
-```powershell
+```bash
 # 使用 MSBuild
 msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
 ```
@@ -90,7 +90,6 @@ msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
 示例脚本：下载链接
 
 ### 命令行界面（CLI）
-powershell
 #### 基本语法
 `UltrAES.exe [命令] [参数]`
 
