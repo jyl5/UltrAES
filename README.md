@@ -97,7 +97,7 @@ msbuild UltrAES.sln /p:Configuration=Release /p:Platform=x64
 
 #### 批量处理
 ```bash
-UltrAES.exe batch -s "script.txt"
+UltrAES.exe -s "script.txt"
 ```
 
 #### 配置文件
