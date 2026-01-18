@@ -1,7 +1,7 @@
 # UltrAES - 使用AES-256的高性能文件加密工具
 
 ![C++ 14](https://img.shields.io/badge/C++-14-blue.svg)
-![GPLv3 License](https://img.shields.io/badge/license-vGPL3-green.svg)
+![GPLv3 License](https://img.shields.io/badge/license-GPLv3-green.svg)
 ![Windows Platform](https://img.shields.io/badge/platform-Windows-lightblue.svg)
 ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio-2022-purple.svg)
 
