@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltrAES - 高性能AES-256文件加密工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .logo-tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-cpp {
+            background-color: #00599c;
+            color: white;
+        }
+        
+        .badge-windows {
+            background-color: #0078d7;
+            color: white;
+        }
+        
+        .badge-license {
+            background-color: #3c7c3c;
+            color: white;
+        }
+        
+        /* 主要内容区域 */
+        .hero {
+            padding: 3rem 0;
+            background-color: white;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .hero-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .hero-image {
+            text-align: center;
+        }
+        
+        .hero-image i {
+            font-size: 8rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+        
+        .download-box {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+        
+        .download-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        /* 版本下载表格 */
+        .versions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .versions-table th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 15px;
+        }
+        
+        .versions-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .versions-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .versions-table tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .version-tag {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 100px;
+        }
+        
+        .download-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn-x64 {
+            background-color: var(--secondary-color);
+        }
+        
+        .download-btn-x86 {
+            background-color: var(--accent-color);
+        }
+        
+        .architecture-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .architecture-x64 {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .architecture-x86 {
+            background-color: #1abc9c;
+            color: white;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #eee;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* 特性展示 */
+        .features {
+            padding: 3rem 0;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* 性能展示 */
+        .performance {
+            padding: 3rem 0;
+            background-color: white;
+        }
+        
+        .performance-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .performance-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .performance-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style-type: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .versions-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+            }
+            
+            .download-btn {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            background-color: #ffeaea;
+            color: #c00;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+        
+        .current-version {
+            text-align: center;
+            padding: 10px;
+            background-color: #e8f4fd;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .no-versions {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .debug-info {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .retry-btn {
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .retry-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h1>UltrAES</h1>
+                        <div class="logo-tagline">高性能AES-256文件加密工具</div>
+                        <div class="badges">
+                            <span class="badge badge-cpp">C++ 14</span>
+                            <span class="badge badge-windows">Windows</span>
+                            <span class="badge badge-license">GPL3 许可证</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="version-info">
+                    <div id="current-version-display" class="current-version">
+                        <span id="current-version-text">UltrAES V1.1.0</span>
+                    </div>
+                    <div id="release-date-display" class="release-date">发布日期: 2026年1月</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 介绍区域 -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2>完全使用 C++ 原生开发的高性能文件加密工具</h2>
+                        <p>UltrAES 基于工业级 AES-256 加密算法实现，无需任何外部依赖，提供卓越的加密性能和最小的内存占用。专为需要高速、安全文件加密的用户设计。</p>
+                        
+                        <div class="feature-list">
+                            <li>纯原生 AES-256 实现，无第三方库依赖</li>
+                            <li>硬件加速优化，利用 AES-NI 指令集</li>
+                            <li>多线程并行处理，充分利用多核 CPU</li>
+                            <li>支持多种哈希算法验证文件完整性</li>
+                            <li>简洁直观的图形界面和命令行工具</li>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </div>
+                
+                <!-- 下载区域 -->
+                <div class="download-box">
+                    <h3><i class="fas fa-download"></i> 下载 UltrAES</h3>
+                    <div id="versions-loading" class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> 正在加载版本信息...
+                    </div>
+                    <table class="versions-table" id="versions-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>版本</th>
+                                <th>发布日期</th>
+                                <th>更新说明</th>
+                                <th>架构</th>
+                                <th>下载</th>
+                            </tr>
+                        </thead>
+                        <tbody id="versions-body">
+                            <!-- 版本信息将通过JavaScript动态加载 -->
+                        </tbody>
+                    </table>
+                    <div id="versions-error" class="error" style="display: none;">
+                        <p>无法加载版本信息。可能的原因：</p>
+                        <ol>
+                            <li><code>versions.txt</code> 文件不存在或路径不正确</li>
+                            <li>文件格式不正确（应使用竖线 | 分隔字段）</li>
+                            <li>服务器配置阻止了 .txt 文件的访问</li>
+                            <li>文件编码不是 UTF-8</li>
+                        </ol>
+                        <p id="debug-details"></p>
+                        <button id="retry-btn" class="retry-btn">重试加载</button>
+                    </div>
+                    <div id="no-versions" class="no-versions" style="display: none;">
+                        暂无版本信息。请稍后查看。
+                        <div class="debug-info">
+                            <p><strong>调试信息：</strong> <code>versions.txt</code> 文件已加载，但未找到有效版本信息。</p>
+                            <p>请确保文件格式正确：版本号|发布日期|下载链接x64|下载链接x86|更新说明（用分号分隔）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特性展示 -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">核心特性</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>极致性能</h3>
+                        <p>零拷贝技术，直接内存映射文件操作，多线程加密大文件，SIMD优化，实时进度反馈。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>安全加密引擎</h3>
+                        <p>手工优化的 C++ AES 实现，无第三方库依赖，利用 AES-NI 指令集，安全内存管理。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>完整性验证</h3>
+                        <p>原生哈希算法实现，支持 CRC32、MD5、SHA-1/256/512，并行哈希计算。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>开发特性</h3>
+                        <p>纯 Win32 API，无 MFC、无 .NET 依赖，现代 C++14，Unicode 支持，最小依赖。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 性能基准 -->
+        <section class="performance">
+            <div class="container">
+                <h2 class="section-title">性能基准</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: #666;">
+                    测试环境：Intel i7-12700K, 32GB DDR4, NVMe SSD
+                </p>
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>操作</th>
+                            <th>文件大小</th>
+                            <th>单线程</th>
+                            <th>4线程</th>
+                            <th>加速比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AES-256 加密</td>
+                            <td>1GB</td>
+                            <td>45s</td>
+                            <td>12s</td>
+                            <td>3.75x</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-256 计算</td>
+                            <td>1GB</td>
+                            <td>8s</td>
+                            <td>3s</td>
+                            <td>2.67x</td>
+                        </tr>
+                        <tr>
+                            <td>批量加密（10×100MB）</td>
+                            <td>1GB</td>
+                            <td>52s</td>
+                            <td>15s</td>
+                            <td>3.47x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>关于 UltrAES</h4>
+                    <p>UltrAES 是一个完全使用 C++ 原生开发的高性能文件加密工具，基于工业级 AES-256 加密算法实现。</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/jyl5/UltrAES" target="_blank"><i class="fab fa-github"></i> GitHub 仓库</a></li>
+                        <li><a href="https://github.com/jyl5/UltrAES/blob/main/README.md"><i class="fas fa-book"></i> 文档</a></li>
+                        <li><a href="https://github.com/jyl5/UltrAES/issues" target="_blank"><i class="fas fa-bug"></i> 报告问题</a></li>
+                        <li><a href="https://github.com/jyl5/UltrAES/blob/main/CONTRIBUTING.md" target="_blank"><i class="fas fa-code-branch"></i> 贡献指南</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>系统要求</h4>
+                    <ul class="footer-links">
+                        <li>Windows 7/8/8.1/10/11</li>
+                        <li>32/64位系统</li>
+                        <li>4GB RAM（建议）</li>
+                        <li>Visual Studio 2022 运行时</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>安全提醒</h4>
+                    <ul class="footer-links">
+                        <li>加密前务必备份原始文件</li>
+                        <li>使用至少12位混合字符密码</li>
+                        <li>定期更换加密密钥</li>
+                        <li>密钥文件与加密数据分开存储</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>UltrAES 采用 GPL v3.0 许可证发行 &copy; 2026</p>
+                <p>免责声明：本软件按"原样"提供，用户应自行承担使用风险。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 版本信息加载
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载版本信息
+            loadVersions('versions.txt');
+            
+            // 添加重试按钮事件监听
+            document.getElementById('retry-btn').addEventListener('click', function() {
+                loadVersions('versions.txt');
+            });
+        });
+
+        function loadVersions(filePath) {
+            // 显示加载中，隐藏其他状态
+            document.getElementById('versions-loading').style.display = 'block';
+            document.getElementById('versions-table').style.display = 'none';
+            document.getElementById('versions-error').style.display = 'none';
+            document.getElementById('no-versions').style.display = 'none';
+            
+            console.log('正在尝试加载版本文件:', filePath);
+            
+            // 添加时间戳防止缓存问题
+            const url = filePath + '?t=' + new Date().getTime();
+            
+            fetch(url)
+                .then(response => {
+                    console.log('响应状态:', response.status, response.statusText);
+                    console.log('响应头:', response.headers);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('成功加载文件，文件长度:', data.length);
+                    console.log('文件内容预览:', data.substring(0, 200) + '...');
+                    
+                    if (data.trim() === '') {
+                        console.warn('文件内容为空');
+                        showNoVersions('文件内容为空');
+                    } else {
+                        parseVersions(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('加载版本文件时出错:', error);
+                    showError(`加载失败: ${error.message}`);
+                });
+        }
+
+        function parseVersions(data) {
+            const versionsBody = document.getElementById('versions-body');
+            const lines = data.trim().split('\n');
+            let hasVersions = false;
+            let firstVersion = true;
+            
+            // 清空表格
+            versionsBody.innerHTML = '';
+            
+            console.log('解析行数:', lines.length);
+            
+            lines.forEach((line, index) => {
+                const trimmedLine = line.trim();
+                if (trimmedLine === '' || trimmedLine.startsWith('#') || trimmedLine.startsWith('//')) {
+                    console.log(`跳过第${index+1}行（空行或注释）: ${trimmedLine.substring(0, 50)}`);
+                    return;
+                }
+                
+                console.log(`解析第${index+1}行: ${trimmedLine.substring(0, 100)}...`);
+                
+                const parts = trimmedLine.split('|');
+                console.log(`分割后字段数: ${parts.length}`);
+                
+                if (parts.length >= 5) {
+                    const version = parts[0].trim();
+                    const date = parts[1].trim();
+                    const linkX64 = parts[2].trim();
+                    const linkX86 = parts[3].trim();
+                    const features = parts[4].split(';').map(f => f.trim());
+                    
+                    console.log(`解析到版本: ${version}, 日期: ${date}, x64链接: ${linkX64}, x86链接: ${linkX86}`);
+                    
+                    // 如果是第一个版本，更新头部显示的当前版本
+                    if (firstVersion) {
+                        document.getElementById('current-version-text').textContent = `UltrAES ${version}`;
+                        document.getElementById('release-date-display').textContent = `发布日期: ${date}`;
+                        firstVersion = false;
+                    }
+                    
+                    const row = document.createElement('tr');
+                    
+                    // 版本列
+                    const versionCell = document.createElement('td');
+                    versionCell.innerHTML = `<span class="version-tag">${version}</span>`;
+                    row.appendChild(versionCell);
+                    
+                    // 日期列
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = date;
+                    row.appendChild(dateCell);
+                    
+                    // 更新说明列
+                    const featuresCell = document.createElement('td');
+                    const featuresList = document.createElement('ul');
+                    featuresList.style.margin = '0';
+                    featuresList.style.paddingLeft = '20px';
+                    
+                    features.forEach(feature => {
+                        if (feature) {
+                            const li = document.createElement('li');
+                            li.textContent = feature;
+                            li.style.marginBottom = '5px';
+                            featuresList.appendChild(li);
+                        }
+                    });
+                    
+                    featuresCell.appendChild(featuresList);
+                    row.appendChild(featuresCell);
+                    
+                    // 架构列
+                    const archCell = document.createElement('td');
+                    archCell.innerHTML = `
+                        <span class="architecture-badge architecture-x64">x64</span>
+                        <span class="architecture-badge architecture-x86">x86</span>
+                    `;
+                    row.appendChild(archCell);
+                    
+                    // 下载列 - 现在有两个按钮
+                    const downloadCell = document.createElement('td');
+                    const downloadButtons = document.createElement('div');
+                    downloadButtons.className = 'download-buttons';
+                    
+                    // x64下载按钮
+                    if (linkX64 && linkX64 !== 'null' && linkX64 !== '') {
+                        const downloadBtnX64 = document.createElement('a');
+                        downloadBtnX64.href = linkX64;
+                        downloadBtnX64.className = 'download-btn download-btn-x64';
+                        downloadBtnX64.textContent = '下载 x64';
+                        downloadBtnX64.target = '_blank';
+                        downloadButtons.appendChild(downloadBtnX64);
+                    }
+                    
+                    // x86下载按钮
+                    if (linkX86 && linkX86 !== 'null' && linkX86 !== '') {
+                        const downloadBtnX86 = document.createElement('a');
+                        downloadBtnX86.href = linkX86;
+                        downloadBtnX86.className = 'download-btn download-btn-x86';
+                        downloadBtnX86.textContent = '下载 x86';
+                        downloadBtnX86.target = '_blank';
+                        downloadButtons.appendChild(downloadBtnX86);
+                    }
+                    
+                    downloadCell.appendChild(downloadButtons);
+                    row.appendChild(downloadCell);
+                    
+                    versionsBody.appendChild(row);
+                    hasVersions = true;
+                } else {
+                    console.warn(`第${index+1}行格式不正确: ${trimmedLine}`);
+                }
+            });
+            
+            if (hasVersions) {
+                // 隐藏加载动画，显示表格
+                document.getElementById('versions-loading').style.display = 'none';
+                document.getElementById('versions-table').style.display = 'table';
+                console.log('成功显示版本表格');
+            } else {
+                // 没有有效的版本信息
+                showNoVersions('解析了 ' + lines.length + ' 行，但未找到格式正确的版本信息');
+            }
+        }
+
+        function showError(message) {
+            // 隐藏加载动画，显示错误信息
+            document.getElementById('versions-loading').style.display = 'none';
+            document.getElementById('versions-error').style.display = 'block';
+            
+            // 显示详细错误信息
+            document.getElementById('debug-details').textContent = `错误详情: ${message}`;
+            
+            console.error('显示错误:', message);
+        }
+
+        function showNoVersions(reason) {
+            // 隐藏加载动画，显示无版本信息
+            document.getElementById('versions-loading').style.display = 'none';
+            document.getElementById('no-versions').style.display = 'block';
+            
+            console.warn('显示无版本信息:', reason);
+        }
+    </script>
+</body>
+</html>
